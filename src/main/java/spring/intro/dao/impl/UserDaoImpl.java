@@ -16,7 +16,6 @@ import spring.intro.util.HibernateUtil;
 @Repository
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
     public void add(User user) {
@@ -48,7 +47,7 @@ public class UserDaoImpl implements UserDao {
             Query<User> getMovies = session.createQuery("from User", User.class);
             return getMovies.getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Failed to get all Movies", e);
+            throw new DataProcessingException("Failed to get Users list", e);
         }
     }
 }

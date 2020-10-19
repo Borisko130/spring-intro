@@ -8,7 +8,6 @@ import spring.intro.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
