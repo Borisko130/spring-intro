@@ -2,6 +2,7 @@ package spring.intro.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.context.annotation.Bean;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory = initSessionFactory();
@@ -17,6 +18,7 @@ public class HibernateUtil {
         }
     }
 
+    @Bean
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
