@@ -1,4 +1,4 @@
-package spring.intro.exceptions;
+package spring.intro.exception;
 
 public class DataProcessingException extends RuntimeException {
     public DataProcessingException(String message, Throwable throwable) {

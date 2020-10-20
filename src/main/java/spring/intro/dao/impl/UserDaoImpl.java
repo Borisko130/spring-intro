@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import spring.intro.dao.UserDao;
-import spring.intro.exceptions.DataProcessingException;
+import spring.intro.exception.DataProcessingException;
 import spring.intro.model.User;
 
 @Repository
