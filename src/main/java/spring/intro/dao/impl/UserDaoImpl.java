@@ -1,6 +1,7 @@
 package spring.intro.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,7 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import spring.intro.dao.UserDao;
-import spring.intro.exceptions.DataProcessingException;
+import spring.intro.exception.DataProcessingException;
 import spring.intro.model.User;
 
 @Repository
@@ -45,11 +46,24 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Optional<User> getById(Long id) {
+        logger.debug("Method getbyId() invoked");
+        try (Session session = sessionFactory.openSession()) {
+            Query<User> getUser = session.createQuery("from User u "
+                    + "WHERE u.id = :id", User.class);
+            getUser.setParameter("id", id);
+            return getUser.uniqueResultOptional();
+        } catch (Exception e) {
+            throw new DataProcessingException("Failed to get User by id " + id, e);
+        }
+    }
+
+    @Override
     public List<User> listUsers() {
         logger.debug("Method getAll() invoked");
         try (Session session = sessionFactory.openSession()) {
-            Query<User> getMovies = session.createQuery("from User", User.class);
-            return getMovies.getResultList();
+            Query<User> getUsers = session.createQuery("from User", User.class);
+            return getUsers.getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Failed to get Users list", e);
         }
