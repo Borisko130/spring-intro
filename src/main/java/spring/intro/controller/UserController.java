@@ -3,6 +3,7 @@ package spring.intro.controller;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.intro.dto.UserResponseDto;
@@ -28,22 +29,25 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public UserResponseDto get(Long userId) {
-        return null;
+    public UserResponseDto get(@PathVariable Long userId) {
+        return convertUserToDto(userService.getById(userId));
     }
-
 
     @GetMapping("/")
     public List<UserResponseDto> getAll() {
         List<UserResponseDto> users = new ArrayList<>();
         for (User user : userService.listUsers()) {
-            users.add(userToDto(user));
+            users.add(convertUserToDto(user));
         }
         return users;
     }
 
-    public UserResponseDto userToDto(User user) {
-        return new UserResponseDto(user.getId(), user.getName(), user.getEmail());
+    private UserResponseDto convertUserToDto(User user) {
+        UserResponseDto dto = new UserResponseDto();
+        dto.setId(user.getId());
+        dto.setEmail(user.getEmail());
+        dto.setName(user.getName());
+        return dto;
     }
 
 }

@@ -2,7 +2,6 @@ package spring.intro.dao.impl;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
