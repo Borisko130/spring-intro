@@ -2,6 +2,8 @@ package spring.intro.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +35,11 @@ public class UserController {
         return convertUserToDto(userService.getById(userId));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<UserResponseDto> getAll() {
-        List<UserResponseDto> users = new ArrayList<>();
-        for (User user : userService.listUsers()) {
-            users.add(convertUserToDto(user));
-        }
-        return users;
+        return userService.listUsers().stream()
+                .map(this::convertUserToDto)
+                .collect(Collectors.toList());
     }
 
     private UserResponseDto convertUserToDto(User user) {
